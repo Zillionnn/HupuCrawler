@@ -6,7 +6,7 @@ var fs = require('fs');
 const UserSaveRoute=require('./route/UserInfo/UserSave');
 
 const url={
-    formUrl:'https://bbs.hupu.com/vote'
+    formUrl:'https://bbs.hupu.com/vote-95'
 };
 /**
  * 进入帖子列表,获取所有主题帖子
