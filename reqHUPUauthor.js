@@ -136,10 +136,13 @@ function getAuthorInfo(url, callback) {
     // callback(err,$);
 }
 
-getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
+/*getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
     console.log(data);
-});
-/*
+});*/
+
+/**
+ * MAIN
+ */
  async.series([
  function (callback) {
  console.log("step 1");
@@ -165,7 +168,7 @@ getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
  });
  }, callback);
  }
- /!*function (callback) {
+ /*function (callback) {
  console.log("step 3");
  async.eachSeries(authorUrlList, function (authorUrl, cb) {
  getAuthorInfo(authorUrl, function (err, data) {
@@ -175,9 +178,8 @@ getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
 
  }, callback);
 
- }*!/
+ }*/
  ], function (err, result) {
  //console.log(result);
  });
-*/
 
