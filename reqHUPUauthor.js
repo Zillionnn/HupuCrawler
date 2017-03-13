@@ -70,11 +70,9 @@ function getAuthorPage(url, callback) {
         }
 
         var $ = cheerio.load(res.body);
-        var errorInfo=$('#search_main .t_tips h4').text();
-        console.log("ERROR INFO>>"+errorInfo);
-        if(!errorInfo){
-
-
+        var errorInfo = $('#search_main .t_tips h4').text();
+        console.log("ERROR INFO>>" + errorInfo);
+        if (!errorInfo) {
             var authorLink;
             authorLink = $('.author .left a').attr('href');
             var authorLinkPattern = /^h/;
@@ -87,9 +85,7 @@ function getAuthorPage(url, callback) {
                     callback(err, data);
                 })
             }
-
         }
-
     });
 }
 
@@ -113,76 +109,72 @@ function getAuthorInfo(url, callback) {
 
         var itemprop = $('.personalinfo .f666');
         //性别
-        if(itemprop[0]!=undefined && itemprop[0].children[0].data=="性        别："){
+        if (itemprop[0] != undefined && itemprop[0].children[0].data == "性        别：") {
             var authorSex = itemprop[0].next.children[0].data;
-    
             console.log("AUTHOR SEX>>" + authorSex);
-        }else{
-             authorSex=null;
+        } else {
+            authorSex = null;
         }
-
         //所在地
-        if(itemprop[1]!=undefined && itemprop[1].children[0].data=="所  在  地："){
-            var authorLocal=itemprop[1].next.children[0].data;
-           
-            console.log("AUTHOR LOCAL>> "+authorLocal);
-        }else{
-            authorLocal=null;
+        if (itemprop[1] != undefined && itemprop[1].children[0].data == "所  在  地：") {
+            var authorLocal = itemprop[1].next.children[0].data;
+            console.log("AUTHOR LOCAL>> " + authorLocal);
+        } else {
+            authorLocal = null;
         }
-        userRoute.saveAuthorInfo(authorID, authorName, authorSex,authorLocal);
+        userRoute.saveAuthorInfo(authorID, authorName, authorSex, authorLocal);
         callback(err, authorName);
-
     });
     // callback(err,$);
 }
 
 /*getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
-    console.log(data);https://bbs.hupu.com/18713688.html
-});*/
+ console.log(data);https://bbs.hupu.com/18713688.html
+ });*/
 /*getAuthorPage('https://bbs.hupu.com/18712455.html',function (err, data) {
-    console.log(data);
-})*/
+ console.log(data);
+ })*/
 
 /**
  * MAIN
  */
- async.series([
- function (callback) {
- console.log("step 1");
- getVote(url.formUrl, function (err, data) {
- if (err) {
- console.log("MAIN PROGRAM ERROR >>" + err);
- } else {
+async.series([
+    function (callback) {
+        console.log("step 1");
+        getVote(url.formUrl, function (err, data) {
+            if (err) {
+                console.log("MAIN PROGRAM ERROR >>" + err);
+            } else {
 
- topicUrlList = data;
- callback(null, topicUrlList);
- }
- });
+                topicUrlList = data;
+                callback(null, topicUrlList);
+            }
+        });
 
- },
- function (callback) {
- console.log('step 2');
- async.eachSeries(topicUrlList, function (topicUrl, cb) {
- console.log("step 2:each>>" + topicUrl);
- getAuthorPage(topicUrl, function (err, data) {
- authorUrlList = data;
- console.log(authorUrlList);
- cb(err);
- });
- }, callback);
- }
- /*function (callback) {
- console.log("step 3");
- async.eachSeries(authorUrlList, function (authorUrl, cb) {
- getAuthorInfo(authorUrl, function (err, data) {
- console.log(data);
- cb(err);
- });
+    },
+    function (callback) {
+        console.log('step 2');
+        async.eachSeries(topicUrlList, function (topicUrl, cb) {
+            console.log("step 2:each>>" + topicUrl);
+            getAuthorPage(topicUrl, function (err, data) {
+                authorUrlList = data;
+                console.log(authorUrlList);
+                cb(err);
+            });
+        }, callback);
+    }
+    /*function (callback) {
+     console.log("step 3");
+     async.eachSeries(authorUrlList, function (authorUrl, cb) {
+     getAuthorInfo(authorUrl, function (err, data) {
+     console.log(data);
+     cb(err);
+     });
 
- }, callback);
+     }, callback);
 
- }*/
- ], function (err, result) {
- //console.log(result);
- });
+     }*/
+], function (err, result) {
+    //console.log(result);
+});
 
