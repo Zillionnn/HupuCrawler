@@ -3,7 +3,7 @@ var request = require('request');
 const async = require('async');
 var fs = require('fs');
 
-const UserSaveRoute = require('./route/UserInfo/UserSave');
+const UserRoute = require('./route/UserInfo/UserRoute');
 
 const url = {
     formUrl: 'https://bbs.hupu.com/bxj'
@@ -69,18 +69,22 @@ function getAuthorPage(url, callback) {
             console.log(url);
             console.log("get AUTHOR PAGE err>>" + err);
         }
+
         var $ = cheerio.load(res.body);
-        var authorLink;
-        authorLink = $('.author .left a').attr('href');
-        var authorLinkPattern = /^h/;
-        /*作者页面存在就执行*/
-        if (authorLinkPattern.test(authorLink) == true) {
-            authorLink = authorLink.replace("/topic", "");
-            //    authorUrlList.push(authorLink);
-            //每一条url 执行写入数据库
-            getAuthorInfo(authorLink, function (err, data) {
-                callback(err, data);
-            })
+        if($('.t_tips')!=null){
+            var authorLink;
+            authorLink = $('.author .left a').attr('href');
+            var authorLinkPattern = /^h/;
+            /*作者页面存在就执行*/
+            if (authorLinkPattern.test(authorLink) == true) {
+                authorLink = authorLink.replace("/topic", "");
+                //    authorUrlList.push(authorLink);
+                //每一条url 执行写入数据库
+                getAuthorInfo(authorLink, function (err, data) {
+                    callback(err, data);
+                })
+            }
+
         }
 
     });
@@ -97,7 +101,7 @@ function getAuthorInfo(url, callback) {
             console.log("get AUTHOR INFO >>" + err);
         }
         var $ = cheerio.load(res.body);
-        var usersave = new UserSaveRoute();
+        var userRoute = new UserRoute();
 
         var authorName = $('.mpersonal div').text();
         var authorID = $('#uid').val();
@@ -124,7 +128,7 @@ function getAuthorInfo(url, callback) {
         }
 
 
-        usersave.saveAuthorInfo(authorID, authorName, authorSex,authorLocal);
+        userRoute.saveAuthorInfo(authorID, authorName, authorSex,authorLocal);
         callback(err, authorName);
 
 
@@ -132,9 +136,10 @@ function getAuthorInfo(url, callback) {
     // callback(err,$);
 }
 
-/*getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
+getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
     console.log(data);
-});*/
+});
+/*
  async.series([
  function (callback) {
  console.log("step 1");
@@ -160,7 +165,7 @@ function getAuthorInfo(url, callback) {
  });
  }, callback);
  }
- /*function (callback) {
+ /!*function (callback) {
  console.log("step 3");
  async.eachSeries(authorUrlList, function (authorUrl, cb) {
  getAuthorInfo(authorUrl, function (err, data) {
@@ -170,8 +175,9 @@ function getAuthorInfo(url, callback) {
 
  }, callback);
 
- }*/
+ }*!/
  ], function (err, result) {
  //console.log(result);
  });
+*/
 
