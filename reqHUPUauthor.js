@@ -85,6 +85,8 @@ function getAuthorPage(url, callback) {
                     callback(err, data);
                 })
             }
+        }else{
+            callback(err,1);
         }
     });
 }
@@ -131,9 +133,11 @@ function getAuthorInfo(url, callback) {
 /*getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
  console.log(data);https://bbs.hupu.com/18713688.html
  });*/
-/*getAuthorPage('https://bbs.hupu.com/18712455.html',function (err, data) {
+/*
+getAuthorPage('https://bbs.hupu.com/18712455.html',function (err, data) {
  console.log(data);
- })*/
+ })
+*/
 
 /**
  * MAIN
