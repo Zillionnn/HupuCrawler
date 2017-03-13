@@ -11,10 +11,14 @@ function UserSaveRoute() {
         console.log("hello user save route");
     };
     
-    this.saveAuthorInfo=function (authorID, authorName) {
+    this.saveAuthorInfo=function (authorID, authorName,authorSex,authorLocal) {
         var userSchema=new UserSchema();
-        userSchema.authorID=authorID;
+        userSchema.authorLocal=authorLocal;
+        userSchema.authorSex=authorSex;
         userSchema.authorName=authorName;
+        userSchema.authorID=authorID;
+
+
         userSchema.save(function (err) {
             if(err)
                 return err;
