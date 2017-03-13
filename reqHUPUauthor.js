@@ -63,7 +63,6 @@ function getVote(url, callback) {
  * @param callback
  */
 function getAuthorPage(url, callback) {
-
     request(url, function (err, res) {
         if (err) {
             console.log(url);
@@ -71,7 +70,11 @@ function getAuthorPage(url, callback) {
         }
 
         var $ = cheerio.load(res.body);
-        if($('.t_tips')!=null){
+        var errorInfo=$('#search_main .t_tips h4').text();
+        console.log("ERROR INFO>>"+errorInfo);
+        if(!errorInfo){
+
+
             var authorLink;
             authorLink = $('.author .left a').attr('href');
             var authorLinkPattern = /^h/;
@@ -126,19 +129,19 @@ function getAuthorInfo(url, callback) {
         }else{
             authorLocal=null;
         }
-
-
         userRoute.saveAuthorInfo(authorID, authorName, authorSex,authorLocal);
         callback(err, authorName);
-
 
     });
     // callback(err,$);
 }
 
 /*getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
-    console.log(data);
+    console.log(data);https://bbs.hupu.com/18713688.html
 });*/
+/*getAuthorPage('https://bbs.hupu.com/18712455.html',function (err, data) {
+    console.log(data);
+})*/
 
 /**
  * MAIN
