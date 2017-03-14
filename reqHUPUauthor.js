@@ -6,7 +6,7 @@ var fs = require('fs');
 const UserRoute = require('./route/UserInfo/UserRoute');
 
 const url = {
-    formUrl: 'https://bbs.hupu.com/bxj'
+    formUrl: 'https://bbs.hupu.com/vote'
 };
 /**
  * 进入帖子列表,获取所有主题帖子
