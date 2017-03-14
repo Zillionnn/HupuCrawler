@@ -24,24 +24,31 @@ function UserRoute() {
         userSchema.authorSex = authorSex;
         userSchema.authorName = authorName;
         userSchema.authorID = authorID;
-        UserSchema.find({"authorID": authorID}, function (err,data) {
+        UserSchema.find({"authorID": authorID}, function (err, data) {
             if (err)
                 console.log("CHECK SAME AUTHOR>>" + err);
-            if(data.length<=0){
+            if (data.length <= 0) {
                 userSchema.save(function (err) {
                     if (err)
                         return err;
                     console.log("SAVE AUTHOR INFO SUCCESS");
                 });
-            }else{
+            } else {
                 console.log("AUTHOR EXIST");
             }
         });
-
-
     }
 
+    this.getAllFemaleNum=function () {
+      var  femaleNum=1;
+ /*       UserSchema.find({"authorSex": "女"}, function (err, data) {
+            femaleNum=data.length;
 
+        });
+     */
+
+        return 33;
+    }
 }
 
 module.exports = UserRoute;

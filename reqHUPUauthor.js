@@ -68,26 +68,28 @@ function getAuthorPage(url, callback) {
             console.log(url);
             console.log("get AUTHOR PAGE err>>" + err);
         }
-
-        var $ = cheerio.load(res.body);
-        var errorInfo = $('#search_main .t_tips h4').text();
-        console.log("ERROR INFO>>" + errorInfo);
-        if (!errorInfo) {
-            var authorLink;
-            authorLink = $('.author .left a').attr('href');
-            var authorLinkPattern = /^h/;
-            /*作者页面存在就执行*/
-            if (authorLinkPattern.test(authorLink) == true) {
-                authorLink = authorLink.replace("/topic", "");
-                //    authorUrlList.push(authorLink);
-                //每一条url 执行写入数据库
-                getAuthorInfo(authorLink, function (err, data) {
-                    callback(err, data);
-                })
+        if(res){
+            var $ = cheerio.load(res.body);
+            var errorInfo = $('#search_main .t_tips h4').text();
+            console.log("ERROR INFO>>" + errorInfo);
+            if (!errorInfo) {
+                var authorLink;
+                authorLink = $('.author .left a').attr('href');
+                var authorLinkPattern = /^h/;
+                /*作者页面存在就执行*/
+                if (authorLinkPattern.test(authorLink) == true) {
+                    authorLink = authorLink.replace("/topic", "");
+                    //    authorUrlList.push(authorLink);
+                    //每一条url 执行写入数据库
+                    getAuthorInfo(authorLink, function (err, data) {
+                        callback(err, data);
+                    })
+                }
+            }else{
+                callback(err,1);
             }
-        }else{
-            callback(err,1);
         }
+
     });
 }
 
@@ -101,31 +103,34 @@ function getAuthorInfo(url, callback) {
         if (err) {
             console.log("get AUTHOR INFO >>" + err);
         }
-        var $ = cheerio.load(res.body);
-        var userRoute = new UserRoute();
+        if(res){
+            var $ = cheerio.load(res.body);
+            var userRoute = new UserRoute();
 
-        var authorName = $('.mpersonal div').text();
-        var authorID = $('#uid').val();
-        console.log("AUTHOR ID>>" + authorID);
-        console.log("AUTHOR NAME>>" + authorName);
+            var authorName = $('.mpersonal div').text();
+            var authorID = $('#uid').val();
+            console.log("AUTHOR ID>>" + authorID);
+            console.log("AUTHOR NAME>>" + authorName);
 
-        var itemprop = $('.personalinfo .f666');
-        //性别
-        if (itemprop[0] != undefined && itemprop[0].children[0].data == "性        别：") {
-            var authorSex = itemprop[0].next.children[0].data;
-            console.log("AUTHOR SEX>>" + authorSex);
-        } else {
-            authorSex = null;
+            var itemprop = $('.personalinfo .f666');
+            //性别
+            if (itemprop[0] != undefined && itemprop[0].children[0].data == "性        别：") {
+                var authorSex = itemprop[0].next.children[0].data;
+                console.log("AUTHOR SEX>>" + authorSex);
+            } else {
+                authorSex = null;
+            }
+            //所在地
+            if (itemprop[1] != undefined && itemprop[1].children[0].data == "所  在  地：") {
+                var authorLocal = itemprop[1].next.children[0].data;
+                console.log("AUTHOR LOCAL>> " + authorLocal);
+            } else {
+                authorLocal = null;
+            }
+            userRoute.saveAuthorInfo(authorID, authorName, authorSex, authorLocal);
+            callback(err, authorName);
         }
-        //所在地
-        if (itemprop[1] != undefined && itemprop[1].children[0].data == "所  在  地：") {
-            var authorLocal = itemprop[1].next.children[0].data;
-            console.log("AUTHOR LOCAL>> " + authorLocal);
-        } else {
-            authorLocal = null;
-        }
-        userRoute.saveAuthorInfo(authorID, authorName, authorSex, authorLocal);
-        callback(err, authorName);
+
     });
     // callback(err,$);
 }
