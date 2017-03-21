@@ -1,9 +1,14 @@
+/**
+ * Created by Zillion on 2017/3/20.
+ */
+var express = require('express');
+var router = express.Router();
 var cheerio = require('cheerio');
 var request = require('request');
 const async = require('async');
 var fs = require('fs');
 
-const UserRoute = require('./route/UserInfo/UserRoute');
+const UserRoute = require('../route/UserInfo/UserRoute');
 
 const url = {
     formUrl: 'https://bbs.hupu.com/vote'
@@ -135,22 +140,20 @@ function getAuthorInfo(url, callback) {
     // callback(err,$);
 }
 
-/*getAuthorInfo("https://my.hupu.com/187458669583383", function (err, data) {
- console.log(data);https://bbs.hupu.com/18713688.html
- });*/
-/*
-getAuthorPage('https://bbs.hupu.com/18712455.html',function (err, data) {
- console.log(data);
- })
-*/
+
 
 /**
  * MAIN
+ * 输入地址  开始爬取
  */
+router.post('/getInfo',function (req, res, callback) {
+    console.log('START CRAWLER INFO>>>> ');
+    var reqUrl=req.body.url;
+    console.log(reqUrl);
     async.series([
         function (callback) {
             console.log("step 1");
-            getVote(url.formUrl, function (err, data) {
+            getVote(reqUrl, function (err, data) {
                 if (err) {
                     console.log("MAIN PROGRAM ERROR >>" + err);
                 } else {
@@ -186,6 +189,7 @@ getAuthorPage('https://bbs.hupu.com/18712455.html',function (err, data) {
     ], function (err, result) {
         //console.log(result);
     });
+});
 
 
-
+module.exports = router;

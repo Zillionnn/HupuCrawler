@@ -3,8 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
 </head>
 <body>
-HEY
+<label class="label">输入论坛任一页</label>
+<input type="text" id="crawlerUrl">
+<br/>
+<button class="btn btn-default" onclick="start()">开始爬</button>
+
 </body>
 </html>
+<script src="/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        console.log("index");
+    });
+    function start() {
+        var url=document.getElementById("crawlerUrl").value;
+        console.log(url);
+        console.log("START TO CRAWLER  author info");
+        $.ajax({
+            url:'/task/getinfo',
+            type:'POST',
+            dataType:'json',
+            data:{
+                url:url
+            },
+            success:function (data) {
+                console.log('program is starting..');
+            },
+            error:function (err) {
+                console.error(err);
+            }
+        });
+    }
+</script>
