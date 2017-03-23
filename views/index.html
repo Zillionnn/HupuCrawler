@@ -3,31 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css"/>
     <style>
         body{
-            background-color: #303030;
-            color:#dfdfdf;
+            font-size: 1.8em !important;
+            background-color: #efefef;
+            color: #000000;
+        }
+        #sexChart{
+            width: 800px;
+            height:400px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <label class="label">输入论坛任一页</label>
+输入论坛任一页
     <input type="text" id="crawlerUrl">
     <br/>
     <button class="btn btn-default" onclick="start()">开始爬</button>
+<button class="btn btn-default" onclick="generateMap()">生成统计图</button>
+    <div id="sexChart"></div>
 
 </div>
 
 </body>
 </html>
 <script src="/jquery/dist/jquery.min.js"></script>
-<script src=""
+<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/echarts.min.js"></script>
 <script>
     $(document).ready(function () {
         console.log("index");
     });
+
+    var sexChart=echarts.init(document.getElementById("sexChart"));
+
     function start() {
         var url=document.getElementById("crawlerUrl").value;
         console.log(url);
@@ -46,5 +57,52 @@
                 console.error(err);
             }
         });
+    }
+
+    function generateMap(){
+
+$.ajax({
+    url:'/task/generatemap',
+    dataType:'json',
+    type:'get',
+    success:function (data) {
+        var male=data.male;
+        var female=data.female;
+        var all=data.allUser;
+        var nullsex=all-male-female;
+        console.log(data.data[0].male);
+        male=data.data[0].male;
+        female=data.data[1].female;
+        nullsex=data.data[2].nullsex;
+        console.log(female);
+        console.log(nullsex);
+        var sexOption={
+            title: {
+                text: '虎扑男女比例'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            series: [{
+                name: '虎扑男女比例',
+                type: 'pie',
+                radius:'55%',
+                data: [
+                    {value:male,name:'男'},
+                    {value:female,name:'女'},
+                    {value:nullsex,name:'未知'}
+                ]
+            }]
+        };
+        sexChart.setOption(sexOption);
+    },
+    error:function (err) {
+        console.log(err);
+    }
+});
+
+
+
     }
 </script>

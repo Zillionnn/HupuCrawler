@@ -7,6 +7,7 @@ var cheerio = require('cheerio');
 var request = require('request');
 const async = require('async');
 var fs = require('fs');
+var UserSchema=require('../route/UserInfo/UserSchema');
 
 const UserRoute = require('../route/UserInfo/UserRoute');
 
@@ -191,5 +192,34 @@ router.post('/getInfo',function (req, res, callback) {
     });
 });
 
+/**
+ * 生成性别比例统计图
+ */
+router.get('/generatemap',function (req, res, callback) {
+    var userRoute=new UserRoute();
+    var allUserNum,femaleNum,maleNum;
+    UserSchema.find({'authorSex':'女'},function (err,data) {
+        if(err)
+            console.log("GENERATE MAP ERROR>>"+err);
+        console.log(data.length);
+        femaleNum=data.length;
+    });
+    UserSchema.find({"authorSex":'男'},function (err, data) {
+        maleNum=data.length;
+        console.log(maleNum);
+    });
+    UserSchema.find({},function (err, data) {
+        if(err)
+            console.log(err);
+        allUserNum=data.length;
+        console.log(allUserNum);
+        res.json({
+            data:
+                [{male:maleNum},
+                    {female:femaleNum},
+                    {nullsex:allUserNum-maleNum-femaleNum}]
+        });
+    });
 
+});
 module.exports = router;
