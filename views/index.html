@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <title>Title</title>
 <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <style>
+        body{
+            background-color: #303030;
+            color:#dfdfdf;
+        }
+    </style>
 </head>
 <body>
-<label class="label">输入论坛任一页</label>
-<input type="text" id="crawlerUrl">
-<br/>
-<button class="btn btn-default" onclick="start()">开始爬</button>
+<div class="container">
+    <label class="label">输入论坛任一页</label>
+    <input type="text" id="crawlerUrl">
+    <br/>
+    <button class="btn btn-default" onclick="start()">开始爬</button>
+
+</div>
 
 </body>
 </html>
 <script src="/jquery/dist/jquery.min.js"></script>
+<script src=""
 <script>
     $(document).ready(function () {
         console.log("index");
