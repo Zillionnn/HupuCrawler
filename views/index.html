@@ -10,7 +10,7 @@
             background-color: #efefef;
             color: #000000;
         }
-        #sexChart{
+        .chart{
             width: 800px;
             height:400px;
         }
@@ -18,13 +18,14 @@
 </head>
 <body>
 <div class="container">
-输入论坛任一页
+<label >输入论坛任一页</label>
     <input type="text" id="crawlerUrl">
     <br/>
     <button class="btn btn-default" onclick="start()">开始爬</button>
 <button class="btn btn-default" onclick="generateMap()">生成统计图</button>
-    <div id="sexChart"></div>
-
+    <button class="btn btn-primary" onclick="generateLocalMap()">生成地区统计图</button>
+    <div id="sexChart" class="chart"></div>
+<div id="positionChart" style="width: 800px;height: 600px;"></div>
 </div>
 
 </body>
@@ -38,6 +39,7 @@
     });
 
     var sexChart=echarts.init(document.getElementById("sexChart"));
+    var positionChart=echarts.init(document.getElementById("positionChart"));
 
     function start() {
         var url=document.getElementById("crawlerUrl").value;
@@ -70,7 +72,7 @@ $.ajax({
         var female=data.female;
         var all=data.allUser;
         var nullsex=all-male-female;
-        console.log(data.data[0].male);
+        console.log(data);
         male=data.data[0].male;
         female=data.data[1].female;
         nullsex=data.data[2].nullsex;
@@ -103,6 +105,107 @@ $.ajax({
 });
 
 
+
+    }
+
+    function generateLocalMap() {
+        $.ajax({
+        url:'/task/generateLocationMap',
+            dataType:'json',
+            type:'get',
+            success:function (data) {
+                console.log(data.data[3]);
+                var Jiangsu,Beijing,Tianjin,Shanghai,Chongqing,Hebei,Shanxi,Liaoning,Heilongjiang,Zhejiang,Anhui,Fujian,Jiangxi,Shandong,
+                        Henan,Hubei,
+                        Hunan,Guangdong,Hainan,Sichuan,Guizhou,Yunnan,Shanxi3,Gansu,Qinghai,Taiwan,Neimenggu,Guangxi,Xizang,Ningxia,Xinjiang,Hongkong,Aomen,Jiling;
+                Jiangsu=data.data[0].Jiangsu;
+                Beijing=data.data[1].Beijing;
+                Tianjin=data.data[2].Tianjin;
+                Shanghai=data.data[3].Shanghai;
+                Chongqing=data.data[4].Chongqing;
+                Hebei=data.data[5].Hebei;
+                Shanxi=data.data[6].Shanxi;
+                Liaoning=data.data[7].Liaoning;
+                Heilongjiang=data.data[8].Heilongjiang;
+                Zhejiang=data.data[9].Zhejiang;
+                Anhui=data.data[10].Anhui;
+                Fujian=data.data[11].Fujian;
+                Jiangxi=data.data[12].Jiangxi;
+                Shandong=data.data[13].Shandong;
+                Henan=data.data[14].Henan;
+                Hubei=data.data[15].Hubei;
+                Hunan=data.data[16].Hunan;
+                Guangdong=data.data[17].Guangdong;
+                Hainan=data.data[18].Hainan;
+                Sichuan=data.data[19].Sichuan;
+                Guizhou=data.data[20].Guizhou;
+                Yunnan=data.data[21].Yunnan;
+                Shanxi3=data.data[22].Shanxi3;
+                Gansu=data.data[23].Gansu;
+                Qinghai=data.data[24].Qinghai;
+                Taiwan=data.data[25].Taiwan;
+                Neimenggu=data.data[26].Neimenggu;
+                Guangxi=data.data[27].Guangxi;
+                Xizang=data.data[28].Xizang;
+                Ningxia=data.data[29].Ningxia;
+                Xinjiang=data.data[30].Xinjiang;
+                Hongkong=data.data[31].Hongkong;
+                Aomen=data.data[32].Aomen;
+                Jiling=data.data[33].Jiling;
+
+                var positionOption={
+                    title: {
+                        text: 'JRs地区分布'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    series: [{
+                        name: 'JRs地区分布',
+                        type: 'pie',
+                        radius:'55%',
+                        data: [
+                            {value:Jiangsu,name:"江苏"},
+                            {value:Beijing,name:"北京"},
+                            {value:Tianjin,name:"天津"},
+                            {value:Shanghai,name:"上海"},
+                            {value:Chongqing,name:"重庆"},
+                            {value:Hebei,name:"河北"},
+                            {value:Shanxi,name:"山西"},
+                            {value:Liaoning,name:"辽宁"},
+                            {value:Heilongjiang,name:"黑龙江"},
+                            {value:Zhejiang,name:"浙江"},
+                            {value:Anhui,name:"安徽"},
+                            {value:Fujian,name:"福建"},
+                            {value:Jiangxi,name:"江西"},
+                            {value:Shandong,name:"山东"},
+                            {value:Henan,name:"河南"},
+                            {value:Hubei,name:"湖北"},
+                            {value:Hunan,name:"湖南"},
+                            {value:Guangdong,name:"广东"},
+                            {value:Hainan,name:"海南"},
+                            {value:Sichuan,name:"四川"},
+                            {value:Guizhou,name:"贵州"},
+                            {value:Yunnan,name:"云南"},
+                            {value:Shanxi3,name:"陕西"},
+                            {value:Gansu,name:"甘肃"},
+                            {value:Qinghai,name:"青海"},
+                            {value:Taiwan,name:"台湾"},
+                            {value:Neimenggu,name:"内蒙古"},
+                            {value:Guangxi,name:"广西"},
+                            {value:Xizang,name:"西藏"},
+                            {value:Ningxia,name:"宁夏"},
+                            {value:Xinjiang,name:"新疆"},
+                            {value:Hongkong,name:"香港"},
+                            {value:Aomen,name:"澳门"},
+                            {value:Jiling,name:"吉林"}
+                        ]
+                    }]
+                };
+                positionChart.setOption(positionOption);
+            }
+        });
 
     }
 </script>

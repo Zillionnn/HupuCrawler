@@ -222,4 +222,221 @@ router.get('/generatemap',function (req, res, callback) {
     });
 
 });
+
+
+var Jiangsu,Beijing,Tianjin,Shanghai,Chongqing,Hebei,Shanxi,Liaoning,Heilongjiang,Zhejiang,Anhui,Fujian,Jiangxi,Shandong,Henan,Hubei,Hunan,Guangdong,Hainan,Sichuan,Guizhou,Yunnan,Shanxi3,Gansu,Qinghai,Taiwan,Neimenggu,Guangxi,Xizang,Ningxia,Xinjiang,Hongkong,Aomen,Jiling;
+router.get('/generateLocationMap',function (req, res, callback) {
+
+    UserSchema.find({'authorLocal':/^江苏/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Jiangsu=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^北京/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Beijing=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^河北/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Hebei=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^河南/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Hainan=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^黑龙江/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Heilongjiang=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^天津/},function (err,callback) {
+        if(err)
+            console.log(err);
+Tianjin=callback.length;
+
+    });
+
+    UserSchema.find({'authorLocal':/^上海/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Shanghai=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^重庆/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Chongqing=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^山西/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Shanxi=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^辽宁/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Liaoning=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^吉林/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Jiling=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^浙江/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Zhejiang=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^安徽/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Anhui=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^福建/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Fujian=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^江西/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Jiangxi=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^山东/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Shandong=callback.length;
+    });
+    
+    UserSchema.find({'authorLocal':/^湖北/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Hebei=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^湖南/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Hainan=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^广东/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Guangdong=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^海南/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Hainan=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^四川/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Sichuan=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^贵州/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Guizhou=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^云南/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Yunnan=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^陕西/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Shanxi3=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^甘肃/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Gansu=callback.length;
+    });
+    UserSchema.find({'authorLocal':/^青海/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Qinghai=callback.length;
+    });
+    UserSchema.find({'authorLocal':/^台湾/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Taiwan=callback.length;
+    });
+    UserSchema.find({'authorLocal':/^内蒙古/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Neimenggu=callback.length;
+    });
+    UserSchema.find({'authorLocal':/^广西/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Guangxi=callback.length;
+    });
+    UserSchema.find({'authorLocal':/^西藏/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Xizang=callback.length;
+    });
+
+    UserSchema.find({'authorLocal':/^宁夏/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Ningxia=callback.length;
+    });
+    UserSchema.find({'authorLocal':/^新疆/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Xinjiang=callback.length;
+    });
+    UserSchema.find({'authorLocal':/^香港/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Hongkong=callback.length;
+    });
+    UserSchema.find({'authorLocal':/^澳门/},function (err,callback) {
+        if(err)
+            console.log(err);
+        Aomen=callback.length;
+
+    });
+
+    res.json({
+        data:[{Jiangsu:Jiangsu},{Beijing:Beijing},{Tianjin:Tianjin},
+            {Shanghai:Shanghai},
+            {Chongqing:Chongqing},{Hebei:Hebei},{Shanxi:Shanxi},{Liaoning:Liaoning},
+            {Heilongjiang:Heilongjiang},{Zhejiang:Zhejiang},{Anhui:Anhui},
+            {Fujian:Fujian},{Jiangxi:Jiangxi},{Shandong:Shandong},{Henan:Henan},
+            {Hubei:Hebei},{Hunan:Hunan},{Guangdong:Guangdong},{Hainan:Hainan},
+            {Sichuan:Sichuan},{Guizhou:Guizhou},{Yunnan:Yunnan},{Shanxi3:Shanxi3},
+            {Gansu:Gansu},{Qinghai:Qinghai},{Taiwan:Taiwan},{Neimenggu:Neimenggu},
+            {Guangxi:Guangxi},{Xizang:Xizang},{Ningxia:Ningxia},{Xinjiang:Xinjiang},
+            {Hongkong:Hongkong},{Aomen:Aomen},{Jiling:Jiling}
+        ]
+    });
+    });
 module.exports = router;
