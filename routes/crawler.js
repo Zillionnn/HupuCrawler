@@ -248,7 +248,7 @@ router.get('/generateLocationMap',function (req, res, callback) {
     UserSchema.find({'authorLocal':/^河南/},function (err,callback) {
         if(err)
             console.log(err);
-        Hainan=callback.length;
+        Henan=callback.length;
     });
 
     UserSchema.find({'authorLocal':/^黑龙江/},function (err,callback) {
@@ -333,7 +333,7 @@ Tianjin=callback.length;
     UserSchema.find({'authorLocal':/^湖南/},function (err,callback) {
         if(err)
             console.log(err);
-        Hainan=callback.length;
+        Hunan=callback.length;
     });
 
     UserSchema.find({'authorLocal':/^广东/},function (err,callback) {
@@ -431,7 +431,7 @@ Tianjin=callback.length;
             {Chongqing:Chongqing},{Hebei:Hebei},{Shanxi:Shanxi},{Liaoning:Liaoning},
             {Heilongjiang:Heilongjiang},{Zhejiang:Zhejiang},{Anhui:Anhui},
             {Fujian:Fujian},{Jiangxi:Jiangxi},{Shandong:Shandong},{Henan:Henan},
-            {Hubei:Hebei},{Hunan:Hunan},{Guangdong:Guangdong},{Hainan:Hainan},
+            {Hubei:Hubei},{Hunan:Hunan},{Guangdong:Guangdong},{Hainan:Hainan},
             {Sichuan:Sichuan},{Guizhou:Guizhou},{Yunnan:Yunnan},{Shanxi3:Shanxi3},
             {Gansu:Gansu},{Qinghai:Qinghai},{Taiwan:Taiwan},{Neimenggu:Neimenggu},
             {Guangxi:Guangxi},{Xizang:Xizang},{Ningxia:Ningxia},{Xinjiang:Xinjiang},
