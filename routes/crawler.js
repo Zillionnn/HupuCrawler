@@ -223,7 +223,9 @@ router.get('/generatemap',function (req, res, callback) {
 
 });
 
-
+/**
+ * 生成区域统计图
+ */
 var Jiangsu,Beijing,Tianjin,Shanghai,Chongqing,Hebei,Shanxi,Liaoning,Heilongjiang,Zhejiang,Anhui,Fujian,Jiangxi,Shandong,Henan,Hubei,Hunan,Guangdong,Hainan,Sichuan,Guizhou,Yunnan,Shanxi3,Gansu,Qinghai,Taiwan,Neimenggu,Guangxi,Xizang,Ningxia,Xinjiang,Hongkong,Aomen,Jiling;
 router.get('/generateLocationMap',function (req, res, callback) {
 
@@ -439,4 +441,5 @@ Tianjin=callback.length;
         ]
     });
     });
+
 module.exports = router;
