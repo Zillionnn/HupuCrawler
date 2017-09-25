@@ -34,7 +34,7 @@ function UserRoute() {
                     console.log("SAVE AUTHOR INFO SUCCESS");
                 });
             } else {
-                console.log("AUTHOR EXIST");
+            //    console.log("AUTHOR EXIST");
             }
         });
     }

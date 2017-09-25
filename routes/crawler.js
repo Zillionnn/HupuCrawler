@@ -22,13 +22,14 @@ const url = {
 var topicUrlList = [];
 var authorUrlList = [];
 function getVote(url, callback) {
+    console.log("GET VOTE>>");
     var list = [];
     var pattern = /^\/[A-Za-z]/;
     request(url, function (err, res) {
         console.log(url);
         try {
             $ = cheerio.load(res.body.toString());
-            $(".p_title a").each(function () {
+            $(".titlelink  a").each(function () {
                 var topicLink = this.attribs.href;
                 //     console.log(topicLink);
                 // console.log(pattern.test(topicLink));
@@ -41,9 +42,10 @@ function getVote(url, callback) {
             });
 
             //下一页
-            var nextPage = $(".next").attr('href');
+            var nextPage = $(".nextPage").attr('href');
             if (nextPage) {
                 nextPage = 'https://bbs.hupu.com' + nextPage;
+                console.info("NEXT PAGE>>"+nextPage);
                 getVote(nextPage, function (err, data) {
                     if (err) {
                         return callback(err);
@@ -77,7 +79,10 @@ function getAuthorPage(url, callback) {
         if(res){
             var $ = cheerio.load(res.body);
             var errorInfo = $('#search_main .t_tips h4').text();
-            console.log("ERROR INFO>>" + errorInfo);
+            if(errorInfo){
+                console.log("ERROR INFO>>" + errorInfo);    
+            }
+            
             if (!errorInfo) {
                 var authorLink;
                 authorLink = $('.author .left a').attr('href');
@@ -107,29 +112,29 @@ function getAuthorPage(url, callback) {
 function getAuthorInfo(url, callback) {
     request(url, function (err, res) {
         if (err) {
-            console.log("get AUTHOR INFO >>" + err);
+            console.log("get AUTHOR ERRRRRRRRRRRRROR >>" + err);
         }
         if(res){
             var $ = cheerio.load(res.body);
             var userRoute = new UserRoute();
 
             var authorName = $('.mpersonal div').text();
-            var authorID = $('#uid').val();
-            console.log("AUTHOR ID>>" + authorID);
-            console.log("AUTHOR NAME>>" + authorName);
+          var authorID = url.replace("https://my.hupu.com/","");
+        //    console.log("AUTHOR ID>>" + authorID);
+          //  console.log("AUTHOR NAME>>" + authorName);
 
             var itemprop = $('.personalinfo .f666');
             //性别
             if (itemprop[0] != undefined && itemprop[0].children[0].data == "性        别：") {
                 var authorSex = itemprop[0].next.children[0].data;
-                console.log("AUTHOR SEX>>" + authorSex);
+            //    console.log("AUTHOR SEX>>" + authorSex);
             } else {
                 authorSex = null;
             }
             //所在地
             if (itemprop[1] != undefined && itemprop[1].children[0].data == "所  在  地：") {
                 var authorLocal = itemprop[1].next.children[0].data;
-                console.log("AUTHOR LOCAL>> " + authorLocal);
+        //        console.log("AUTHOR LOCAL>> " + authorLocal);
             } else {
                 authorLocal = null;
             }
@@ -171,7 +176,7 @@ router.post('/getInfo',function (req, res, callback) {
                 console.log("step 2:each>>" + topicUrl);
                 getAuthorPage(topicUrl, function (err, data) {
                     authorUrlList = data;
-                    console.log(authorUrlList);
+                 //   console.log(authorUrlList);
                     cb(err);
                 });
             }, callback);
